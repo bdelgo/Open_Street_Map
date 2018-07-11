@@ -14,9 +14,7 @@
 ====================================
 
 > I Downloaded the XML file of the preselected metro area for San Jose
-> from MapZen; Here is the address:
->
-> -   <https://mapzen.com/data/metro-extracts/metro/san-jose_california/>
+> from [MapZen](https://mapzen.com/data/metro-extracts/metro/san-jose_california/)
 >
 > The OSM file size is 402.5 MB and the specific bounds of this area
 > are:
@@ -312,10 +310,8 @@ Tabular format
 
 > I will use the \'shape\_element\' function to transform the OSM XML
 > elements to the tabular format based on the schema that is provided in
-> source files by the name of \'schema.py\'. This schema is designed to
-> match with the \<a
-> href=<https://gist.github.com/swwelch/f1144229848b407e0a5d13fcb7fbbd6f%3E>
-> Table Schema \</a\> in the SQL database
+> source files by the name of \'schema.py\'. This Schema is designed to
+> match with the [Table Schema](https://gist.github.com/swwelch/f1144229848b407e0a5d13fcb7fbbd6f%3E) in the SQL database
 >
 > \'shape\_element\' function takes an element as input. If the element
 > top level tag is \"node\" the returned dictionary should have the
