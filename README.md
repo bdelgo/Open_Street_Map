@@ -34,7 +34,7 @@
 > improvement on OpenStreetMap.org
 
 
-Getting Familiarize With Data
+Getting Familiarized With Data
 ==============================================================================
 
 > Before processing the data and add it into my database, I explore the
