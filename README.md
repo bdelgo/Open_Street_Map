@@ -1,15 +1,5 @@
-::: {#notebook .border-box-sizing tabindex="-1"}
-::: {#notebook-container .container}
-::: {.cell .border-box-sizing .text_cell .rendered}
-::: {.prompt .input_prompt}
-:::
 
-::: {.inner_cell}
-::: {.text_cell_render .border-box-sizing .rendered_html}
-Wrangle OpenStreetMap Data: San Jose[¶](#Wrangle-OpenStreetMap-Data:-San-Jose){.anchor-link} {#Wrangle-OpenStreetMap-Data:-San-Jose}
-============================================================================================
-
-Table of Contents[¶](#Table-of-Contents){.anchor-link} {#Table-of-Contents}
+**Table of Contents**
 ------------------------------------------------------
 
 [Introduction](#intro)
@@ -27,19 +17,9 @@ Table of Contents[¶](#Table-of-Contents){.anchor-link} {#Table-of-Contents}
 [Other Ideas About the Datasets](#other)
 
 [Conclusion](#conclu)
-:::
-:::
-:::
 
-::: {.cell .border-box-sizing .text_cell .rendered}
-::: {.prompt .input_prompt}
-:::
 
-::: {.inner_cell}
-::: {.text_cell_render .border-box-sizing .rendered_html}
-[]{#intro}
-
-Introduction[¶](#Introduction){.anchor-link} {#Introduction}
+Introduction[¶](#Introduction)
 ============================================
 
 > In this project, I will explore an audit the Open Street Map data for
