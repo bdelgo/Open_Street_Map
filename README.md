@@ -311,7 +311,7 @@ Tabular format
 > I will use the \'shape\_element\' function to transform the OSM XML
 > elements to the tabular format based on the schema that is provided in
 > source files by the name of \'schema.py\'. This Schema is designed to
-> match with the [Table Schema](https://gist.github.com/swwelch/f1144229848b407e0a5d13fcb7fbbd6f%3E) in the SQL database
+> match with the [Table Schema](https://gist.github.com/swwelch/f1144229848b407e0a5d13fcb7fbbd6f) in the SQL database
 >
 > \'shape\_element\' function takes an element as input. If the element
 > top level tag is \"node\" the returned dictionary should have the
@@ -359,9 +359,8 @@ Building the Database
 --------------------------------------------------------------
 
 > First I created the \'osm\_sanjose\_db\' SqLite database with 5 tables
-> based on this \<a
-> href=<https://gist.github.com/swwelch/f1144229848b407e0a5d13fcb7fbbd6f%3E>
-> Table Schema \</a\>.
+> based on this [Schema](https://gist.github.com/swwelch/f1144229848b407e0a5d13fcb7fbbd6f)
+> 
 >
 > Finally, using the following commands, I import each of the 5 CSV
 > files into the corresponding table in the database:
