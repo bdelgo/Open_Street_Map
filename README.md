@@ -1,37 +1,16 @@
 
-**Table of Contents**
-------------------------------------------------------
-
-[Introduction](#intro)
-
-[Map Area](#map)
-
-[Getting Familiarize With Data](#getting)
-
-[Problems Encountered in the Map](#Problems)
-
-[Building The SQLite Database](#building)
-
-[Overview of the Data](#overview)
-
-[Other Ideas About the Datasets](#other)
-
-[Conclusion](#conclu)
-
-
-Introduction[¶](#Introduction)
+**Project Description**
 ============================================
 
 > In this project, I will explore an audit the Open Street Map data for
 > San Jose area in California United States. Then, I will clear couple
 > of the problems that I find during the auditing process, and write the
 > cleaned data into five csv files according to a predetermined schema.
-> Finally, I import these CSV files into a sqlite3 data base and do some
+> Finally, I import these CSV files into a SQLite3 data base and do some
 > further exploration of data using SQL queries.
 
-[]{#map}
 
-Map Area[¶](#Map-Area){.anchor-link} {#Map-Area}
+**Map Area**
 ====================================
 
 > I Downloaded the XML file of the preselected metro area for San Jose
@@ -56,9 +35,8 @@ Map Area[¶](#Map-Area){.anchor-link} {#Map-Area}
 > of this area. I also like the opportunity to contribute to its
 > improvement on OpenStreetMap.org
 
-[]{#getting}
 
-Getting Familiarize With Data[¶](#Getting-Familiarize-With-Data){.anchor-link} {#Getting-Familiarize-With-Data}
+Getting Familiarize With Data
 ==============================================================================
 
 > Before processing the data and add it into my database, I explore the
@@ -66,19 +44,7 @@ Getting Familiarize With Data[¶](#Getting-Familiarize-With-Data){.anchor-link} 
 > find and count all of the existing tags in the xml file using
 > \'count\_tags\' function. Secondly, I find out how many unique users
 > have contributed to the map in this particular area
-:::
-:::
-:::
 
-::: {.cell .border-box-sizing .code_cell .rendered}
-::: {.input}
-::: {.prompt .input_prompt}
-In \[3\]:
-:::
-
-::: {.inner_cell}
-::: {.input_area}
-::: {.highlight .hl-ipython3}
     def count_tags(filename):
         tag_dic = {}
         for event, elem in ET.iterparse(filename, events=("start",)):
@@ -89,18 +55,7 @@ In \[3\]:
         return tag_dic
 
     pprint.pprint(dict(count_tags(osm_sanjose)))
-:::
-:::
-:::
-:::
 
-::: {.output_wrapper}
-::: {.output}
-::: {.output_area}
-::: {.prompt}
-:::
-
-::: {.output_subarea .output_stream .output_stdout .output_text}
     {'bounds': 1,
      'member': 21926,
      'nd': 2160823,
@@ -109,21 +64,7 @@ In \[3\]:
      'relation': 2631,
      'tag': 768186,
      'way': 244809}
-:::
-:::
-:::
-:::
-:::
 
-::: {.cell .border-box-sizing .code_cell .rendered}
-::: {.input}
-::: {.prompt .input_prompt}
-In \[111\]:
-:::
-
-::: {.inner_cell}
-::: {.input_area}
-::: {.highlight .hl-ipython3}
     def get_user(element):
         tags = ["way", "node"]
         if element.tag in tags:
@@ -141,34 +82,8 @@ In \[111\]:
         return users
 
     print "number of users:", len(process_map(osm_sanjose))
-:::
-:::
-:::
-:::
 
-::: {.output_wrapper}
-::: {.output}
-::: {.output_area}
-::: {.prompt}
-:::
-
-::: {.output_subarea .output_stream .output_stdout .output_text}
-    number of users: 1472
-:::
-:::
-:::
-:::
-:::
-
-::: {.cell .border-box-sizing .text_cell .rendered}
-::: {.prompt .input_prompt}
-:::
-
-::: {.inner_cell}
-::: {.text_cell_render .border-box-sizing .rendered_html}
-[]{#Problems}
-
-Problems Encountered in the Map[¶](#Problems-Encountered-in-the-Map){.anchor-link} {#Problems-Encountered-in-the-Map}
+**Problems Encountered in the Map**
 ==================================================================================
 
 > After getting familiarize with data, It's time to audit the OSM data
@@ -182,56 +97,22 @@ Problems Encountered in the Map[¶](#Problems-Encountered-in-the-Map){.anchor-li
 > you can find all the source codes for this section in
 > \'osm\_audit.py\'
 
-Auditing City Names[¶](#Auditing-City-Names){.anchor-link} {#Auditing-City-Names}
+Auditing City Names
 ----------------------------------------------------------
 
 > In the \'audit\_city\' function, I will add the value of the tags with
 > \"addr:city\" to a Set. These values are names of the cities in San
 > Jose area.
-:::
-:::
-:::
 
-::: {.cell .border-box-sizing .code_cell .rendered}
-::: {.input}
-::: {.prompt .input_prompt}
-In \[6\]:
-:::
-
-::: {.inner_cell}
-::: {.input_area}
-::: {.highlight .hl-ipython3}
     for event, elem in ET.iterparse(osm_file, events=("start",)):
         if elem.tag == "node" or elem.tag == "way":
             for tag in elem.iter("tag"):
                 if tag.attrib['k'] == "addr:city":
                     city_name = tag.attrib['v']
                     city_names.add(city_name)
-:::
-:::
-:::
-:::
+                    
+    City Names: set(['cupertino', 'Sunnyvale, CA', 'San jose', 'Santa Clara', 'Moffett   Field', 'Felton', 'campbell', 'Los Gato', 'Milpitas', 'Mountain View', 'san Jose', 'Fremont', 'Campbelll', 'Coyote', 'San Jose', 'SUnnyvale', u'San Jos\xe9', 'Saratoga', 'san jose', 'Los Gatos, CA', 'Sunnyvale', 'Alviso', 'Mt Hamilton', 'Santa clara', 'Cupertino', 'los gatos', 'santa clara', 'santa Clara', 'Morgan Hill', 'New Almaden', 'Los Gatos', 'sunnyvale', 'Campbell', 'Redwood Estates'])
 
-::: {.output_wrapper}
-::: {.output}
-::: {.output_area}
-::: {.prompt}
-:::
-
-::: {.output_subarea .output_stream .output_stdout .output_text}
-    City Names: set(['cupertino', 'Sunnyvale, CA', 'San jose', 'Santa Clara', 'Moffett Field', 'Felton', 'campbell', 'Los Gato', 'Milpitas', 'Mountain View', 'san Jose', 'Fremont', 'Campbelll', 'Coyote', 'San Jose', 'SUnnyvale', u'San Jos\xe9', 'Saratoga', 'san jose', 'Los Gatos, CA', 'Sunnyvale', 'Alviso', 'Mt Hamilton', 'Santa clara', 'Cupertino', 'los gatos', 'santa clara', 'santa Clara', 'Morgan Hill', 'New Almaden', 'Los Gatos', 'sunnyvale', 'Campbell', 'Redwood Estates'])
-:::
-:::
-:::
-:::
-:::
-
-::: {.cell .border-box-sizing .text_cell .rendered}
-::: {.prompt .input_prompt}
-:::
-
-::: {.inner_cell}
-::: {.text_cell_render .border-box-sizing .rendered_html}
 > The list of cities in San Jose area are very limited as expected.
 > There are couple of problems with city names:
 >
@@ -241,19 +122,7 @@ In \[6\]:
 >
 > I use following mapping dictionary and \'update\_city\' function to
 > modify the incorrect city names:
-:::
-:::
-:::
 
-::: {.cell .border-box-sizing .code_cell .rendered}
-::: {.input}
-::: {.prompt .input_prompt}
-In \[7\]:
-:::
-
-::: {.inner_cell}
-::: {.input_area}
-::: {.highlight .hl-ipython3}
     city_mapping={'cupertino':'Cupertino', 'Sunnyvale, CA':'Sunnyvale', 'campbell':'Campbell', 
                   'Los Gato': 'Los Gatos','San jose': 'San Jose','san Jose':'San Jose', 
                   'Campbelll':'Campbell', 'SUnnyvale':'Sunnyvale', u'San Jos\xe9': 'San Jose', 
@@ -267,19 +136,8 @@ In \[7\]:
             return mapping[name]
         else:
             return name
-:::
-:::
-:::
-:::
-:::
 
-::: {.cell .border-box-sizing .text_cell .rendered}
-::: {.prompt .input_prompt}
-:::
-
-::: {.inner_cell}
-::: {.text_cell_render .border-box-sizing .rendered_html}
-Auditing Street Names[¶](#Auditing-Street-Names){.anchor-link} {#Auditing-Street-Names}
+Auditing Street Names
 --------------------------------------------------------------
 
 > I made a following list of expected street types:
